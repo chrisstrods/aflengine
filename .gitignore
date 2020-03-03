@@ -1,4 +1,4 @@
-# Byte-compiled / optimized / DLL files
+# Binary
 __pycache__/
 *.py[cod]
 *$py.class
@@ -6,6 +6,7 @@ __pycache__/
 # C extensions
 *.so
 
+# macOS
 .DS_Store
 
 # Distribution / packaging
@@ -37,7 +38,7 @@ wheels/
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Unit test / coverage reports
+# Tests and coverage
 htmlcov/
 .tox/
 .coverage
@@ -52,18 +53,18 @@ coverage.xml
 *.mo
 *.pot
 
-# Django stuff:
+# Django
 *.log
 local_settings.py
 
-# Flask stuff:
+# Flask
 instance/
 .webassets-cache
 
-# Scrapy stuff:
+# Scrapy
 .scrapy
 
-# Sphinx documentation
+# Sphinx
 docs/_build/
 
 # PyBuilder
@@ -75,10 +76,10 @@ target/
 # pyenv
 .python-version
 
-# celery beat schedule file
+# celerybeat
 celerybeat-schedule
 
-# SageMath parsed files
+# SageMath
 *.sage.py
 
 # dotenv
@@ -89,15 +90,23 @@ celerybeat-schedule
 venv/
 ENV/
 
-# Spyder project settings
+# Spyder config
 .spyderproject
 .spyproject
 
-# Rope project settings
+# Rope config
 .ropeproject
 
-# mkdocs documentation
+# mkdocs
 /site
 
 # mypy
 .mypy_cache/
+
+# IDE
+.idea/
+
+# AFL Engine
+# Build output
+matchfiles/afltables
+

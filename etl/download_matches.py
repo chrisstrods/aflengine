@@ -2,7 +2,10 @@
 
 from bs4 import BeautifulSoup
 from os.path import dirname, abspath
-import urllib, os, json
+
+import urllib
+import os
+import json
 import sys
 
 

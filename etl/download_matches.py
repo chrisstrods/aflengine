@@ -1,32 +1,24 @@
 #!/usr/bin/env python3
-## -*- coding: utf-8 -*-
-"""
-Created on Wed Feb  7 20:54:07 2018
-
-@author: chrisstrods
-
-This script downloads all of the HTML files from AFLtable and
-Footywire from within the given parameters, in order to be scraped
-"""
 
 from bs4 import BeautifulSoup
 from os.path import dirname, abspath
 import urllib, os, json
 import sys
 
-# startyear - earliest year to get
-# endyear - lastest year to get
-def getPageNames(startyear, endyear):  # Gets JSON list of URLS
+
+# start_year - earliest year to get
+# end_year - lastest year to get
+def get_page_names(start_year, end_year):  # Gets JSON list of URLS
     base = 'https://afltables.com/afl/seas/'
     end = ".html"
     matchlist = dict()
-    year = endyear
+    year = end_year
     d = dirname(dirname(abspath(__file__)))
 
     # make a list of all the years
-    n = startyear
+    n = start_year
     years = list()
-    while (n <= endyear):
+    while (n <= end_year):
         years.append(n)
         n += 1
 
@@ -45,8 +37,8 @@ def getPageNames(startyear, endyear):  # Gets JSON list of URLS
     except (FileNotFoundError, IOError):
         pass
 
-    # loops backwards from endyear to startyear
-    while (year >= startyear):
+    # loops backwards from end_year to start_year
+    while (year >= start_year):
         url = base + str(year) + end
 
         # get page containing all match links in the season
@@ -75,7 +67,7 @@ def getPageNames(startyear, endyear):  # Gets JSON list of URLS
 
 
 # Get main match files from JSON list and store the html files in fodler
-def getPages(syear, eyear):
+def get_pages(start_year, end_year):
     d = dirname(dirname(abspath(__file__)))
 
     # load list from JSON file
@@ -83,17 +75,17 @@ def getPages(syear, eyear):
         data = json.load(fin)
 
     # Iterate through each year in the list
-    for year, mlist in data.items():
+    for year, match_list in data.items():
         # print("Downloading " + str(year) + " season")
         # Create folder for that year if it doesn't exist
         if not os.path.exists(d + "/matchfiles/afltables/" + year):
             os.makedirs(d + "/matchfiles/afltables/" + year)
         # Iterate through each match in the year
 
-        for matchurl in mlist:
-            code = str(matchurl).rpartition('/')[2]
+        for match_url in match_list:
+            code = str(match_url).rpartition('/')[2]
             if not os.path.exists(d + "/matchfiles/afltables/" + year + "/" + code):
-                urllib.request.urlretrieve(matchurl,
+                urllib.request.urlretrieve(match_url,
                                            d + "/matchfiles/afltables/" + year + "/" + code)
                 sys.stdout.write("Successfully downloaded matches for " + str(year) + " season\r")
             # else:
@@ -101,7 +93,7 @@ def getPages(syear, eyear):
 
 
 # get the pages with odds and fantasy data from footywire
-def getExtraPages(scode, ecode):
+def get_extra_pages(scode, ecode):
     d = dirname(dirname(abspath(__file__)))
     # print("Getting matches from " + str(scode) + " to " + str(ecode))
     if not os.path.exists(d + "/matchfiles/footywire/"):
@@ -128,7 +120,7 @@ def getExtraPages(scode, ecode):
 
 # If run from command line, takes year ranges as parameters, otherwise
 # uses defaults
-def main(syear, eyear, scode, ecode):
+def main(start_year, end_year, scode, ecode):
     # first game 2010 is 4961, don't go back any further as info
     # is redundant
 
@@ -138,7 +130,7 @@ def main(syear, eyear, scode, ecode):
 
     try:
         print("Getting list of URLS from AFLtables")
-        getPageNames(syear, eyear)
+        get_page_names(start_year, end_year)
     except Exception as e:
         print(e)
         print("There was an error getting list of URLS from\
@@ -148,7 +140,7 @@ def main(syear, eyear, scode, ecode):
 
     try:
         print("Download HTML files from AFLTables")
-        getPages(syear, eyear)
+        get_pages(start_year, end_year)
     except:
         print("There was an error downloading file from AFLtables, \
                try checking that the year parameters are valid, and \
@@ -157,7 +149,7 @@ def main(syear, eyear, scode, ecode):
 
     try:
         print("Download HTML files from Footywire")
-        getExtraPages(scode, ecode)
+        get_extra_pages(scode, ecode)
     except:
         print("There was an error downloading files from Footywire, \
               try checking that the year parameters are valid, and \

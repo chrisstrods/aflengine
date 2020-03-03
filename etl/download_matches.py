@@ -70,7 +70,7 @@ def get_page_names(start_year, end_year):  # Gets JSON list of URLS
 
 
 # Get main match files from JSON list and store the html files in fodler
-def get_pages(start_year, end_year):
+def get_pages():
     d = dirname(dirname(abspath(__file__)))
 
     # load list from JSON file
@@ -143,7 +143,7 @@ def main(start_year, end_year, scode, ecode):
 
     try:
         print("Download HTML files from AFLTables")
-        get_pages(start_year, end_year)
+        get_pages()
     except:
         print("There was an error downloading file from AFLtables, \
                try checking that the year parameters are valid, and \

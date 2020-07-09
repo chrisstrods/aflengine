@@ -21,8 +21,8 @@ except ModuleNotFoundError:
 
 SYEAR = 2020
 EYEAR = 2020
-SCODE = 10144
-ECODE = 10152
+SCODE = 10182
+ECODE = 10190
 
 
 if __name__ == "__main__":

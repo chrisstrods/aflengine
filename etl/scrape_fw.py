@@ -35,7 +35,8 @@ def loadData(gamerange,playermatch,pma,mdetails):
 
 
     for t in range(gamerange[0],gamerange[1]+1):
-        if((t>9297 or t<6370) and  (t!=6079 and t!=6162 and t !=10142)):
+        if((t>9297 or t<6370) and (t<=9936 or t>= 10126) and (t>=10182 or t<= 10152)  
+           and (t!=6079 and t!=6162 and t !=10142)):
             try:
                 print("Processing game #" + str(t),end="",flush=True)
                 #download file from server
